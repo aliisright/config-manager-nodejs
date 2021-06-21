@@ -1,5 +1,6 @@
 const _ = require('lodash');
-const fs = require("fs");
+const fs = require('fs');
+const { deepMerge } = require('./helpers');
 require('dotenv').config();
 
 class Store {
@@ -43,7 +44,7 @@ class Store {
                 let newFileContent = {};
                 // fill the store keys with config file keys
                 if (this.store[filename]) {
-                    newFileContent = _.merge(this.store[filename], fileContent);
+                    newFileContent = deepMerge(this.store[filename], fileContent);
                 } else {
                     newFileContent = {...fileContent};
                 }
@@ -93,14 +94,17 @@ class Store {
         if (connector.isWatchdog) {
             this.watchdogs.push(connector);
             const watchdog = setInterval(() => {
-                _.merge(this.store, connector.return_config());
+                deepMerge(this.store, connector.return_config());
             }, connector.timeout);
             connector.setWatchdog(watchdog);
         } else {
-            _.merge(this.store, connector.return_config());
+            deepMerge(this.store, connector.return_config());
         }
     };
 
+    /**
+     * Stop all running watchdogs
+     */
     stopWatchdogs = () => {
         this.watchdogs.forEach((watchdog) => {
             watchdog.stop_watchdog();
@@ -114,6 +118,7 @@ class Store {
         try {
             await this.loadConfigFiles('default');
             await this.loadConfigFiles();
+            await this.loadEnvironment();
             await this.loadConnectors();
         } catch (error) {
             console.error('Config.init', error);
@@ -128,7 +133,6 @@ class Store {
             this.store = {};
             this.init()
                 .then(() => resolve(this.store));
-            
         } catch (error) {
             console.error('Config.reload', error);
         }
@@ -148,8 +152,14 @@ class Store {
     /**
      * Get a config element by key
      * @param {string} key 
+     * @param {any} defaultValue 
      */
-    getConfigByKey = key => _.get(this.store, key, null);
+    getConfigByKey = (key, defaultValue) => {
+        if (!_.hasIn(this.store, key)) {
+            return defaultValue;
+        }
+        return _.get(this.store, key, null);
+    }
 
     /**
      * List all config elements
@@ -163,6 +173,11 @@ class Store {
      */
     setConfigValue = (key, value) => _.set(this.store, key, value);
 
+    /**
+     * Get current app config env
+     * 
+     * @returns {string}
+     */
     getCurrentEnv = () => _.get(this.store, ['APP_ENV'], null);
 }
 

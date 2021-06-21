@@ -56,8 +56,9 @@ class Config {
     /**
      * Get a config element by key
      * @param {string} key 
+     * @param {mixed} defaultValue 
      */
-     get_config = key => this.store.getConfigByKey(key);
+    get_config = (key, defaultValue) => this.store.getConfigByKey(key, defaultValue);
 
     /**
      * List all config elements

@@ -1,6 +1,7 @@
 {
 	"auth": {
 		"client_id": 1,
-		"yaya": true
+		"yaya": true,
+		"hosts": ["coco", "yaya", "lolo"]
 	}
 }
