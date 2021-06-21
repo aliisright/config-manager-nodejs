@@ -1,0 +1,14 @@
+{
+  "name": "config-manager",
+  "version": "0.0.53",
+  "description": "a node js config management library",
+  "keywords": [],
+  "main": "index.js",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "lodash": "4.17.21"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
+}

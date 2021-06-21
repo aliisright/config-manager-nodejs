@@ -1,0 +1,10 @@
+{
+	"schemas": {
+		"ad-exchange": "adex-local",
+		"data-pipelines": "d-pip-local",
+		"pipi": "caca"
+	},
+	"user": "someTestUserLocal",
+	"password": "someTestPasswordLocal",
+	"koko": true
+}

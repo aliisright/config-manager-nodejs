@@ -1,0 +1,8 @@
+{
+	"schemas": {
+		"ad-exchange": "adex-local",
+		"data-pipelines": "d-pip-local"
+	},
+	"user": "someTestUserLocal",
+	"password": "someTestPasswordLocal"
+}

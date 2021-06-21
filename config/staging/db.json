@@ -1,0 +1,8 @@
+{
+	"schemas": {
+		"ad-exchange": "adex-staging",
+		"data-pipelines": "d-pip-staging"
+	},
+	"user": "someTestUserStaging",
+	"password": "someTestPasswordStaging"
+}
