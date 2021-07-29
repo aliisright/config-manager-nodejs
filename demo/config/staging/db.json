@@ -1,0 +1,14 @@
+{
+	"connections": {
+		"users": {
+			"host": "https://someRemoteUrl-staging",
+			"user": "users_staging_user",
+			"password": "users_staging_password"
+		},
+		"invoices_db": {
+			"host": "https://someRemoteUrl-staging",
+			"user": "invoices_staging_user",
+			"password": "invoices_staging_password"
+		}
+	}
+}

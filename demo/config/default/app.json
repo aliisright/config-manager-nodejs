@@ -1,0 +1,7 @@
+{
+	"version": 2,
+	"auth": {
+		"client_id": 1,
+		"url": "http://localhost"
+	}
+}

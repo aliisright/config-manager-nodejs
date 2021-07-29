@@ -1,0 +1,14 @@
+{
+  "name": "config-manager-demo",
+  "version": "1.0.0",
+  "description": "Demo of the config manager library",
+  "main": "test.js",
+  "scripts": {
+    "run": "node test.js"
+  },
+  "author": "aliisright",
+  "license": "ISC",
+  "dependencies": {
+    "config-manager": "github:aliisright/config-manager-nodejs"
+  }
+}

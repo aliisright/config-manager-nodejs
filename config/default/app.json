@@ -1,7 +1,0 @@
-{
-	"auth": {
-		"client_id": 1,
-		"yaya": true,
-		"hosts": ["coco", "yaya", "lolo"]
-	}
-}

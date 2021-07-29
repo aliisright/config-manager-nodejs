@@ -1,0 +1,11 @@
+{
+	"default_connection": "users",
+	"connections": {
+		"users": {
+			"engine": "postgres"
+		},
+		"invoices_db": {
+			"engine": "postgres"
+		}
+	}
+}

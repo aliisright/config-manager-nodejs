@@ -1,7 +1,7 @@
 const _ = require('lodash');
-const Store = require("./Store");
+const Store = require('./store');
 
-class Config {
+class ConfigFacade {
     store;
 
     constructor (params = {}) {
@@ -58,7 +58,7 @@ class Config {
      * @param {string} key 
      * @param {mixed} defaultValue 
      */
-    get_config = (key, defaultValue) => this.store.getConfigByKey(key, defaultValue);
+    get_config = (key, defaultValue = null) => this.store.getConfigByKey(key, defaultValue);
 
     /**
      * List all config elements
@@ -70,7 +70,7 @@ class Config {
      * @param {string} key 
      * @param {any} value 
      */
-    set = (key, value) => this.store.setConfigValue(key, value);
+    set_config = (key, value) => this.store.setConfigValue(key, value);
 
     /**
      * Stop all running watchdog processes
@@ -89,4 +89,4 @@ class Config {
     get_current_env = () => this.store.getCurrentEnv();
 }
 
-module.exports = Config;
+module.exports = ConfigFacade;

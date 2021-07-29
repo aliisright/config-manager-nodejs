@@ -1,4 +1,4 @@
-const { ConnectorAbstract } = require("../ConfigManager");
+const { ConnectorAbstract } = require("config-manager");
 
 class DbConnector extends ConnectorAbstract {
     isWatchdog = true;

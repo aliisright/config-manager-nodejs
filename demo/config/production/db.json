@@ -1,0 +1,14 @@
+{
+	"connections": {
+		"users": {
+			"host": "https://someRemoteUrl",
+			"user": "users_production_user",
+			"password": "users_production_password"
+		},
+		"invoices_db": {
+			"host": "https://someRemoteUrl",
+			"user": "invoices_production_user",
+			"password": "invoices_production_password"
+		}
+	}
+}

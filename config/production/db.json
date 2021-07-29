@@ -1,8 +1,0 @@
-{
-	"schemas": {
-		"ad-exchange": "adex-prod",
-		"data-pipelines": "d-pip-prod"
-	},
-	"user": "someTestUserProd",
-	"password": "someTestPasswordProd"
-}

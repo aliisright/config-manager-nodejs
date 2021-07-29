@@ -1,0 +1,6 @@
+{
+	"version": 3,
+	"auth": {
+		"url": "http://some_url"
+	}
+}

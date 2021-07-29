@@ -1,4 +1,4 @@
-const Config = require('./ConfigManager');
+const Config = require('config-manager');
 const DbConnector = require('./connectors/DbConnector');
 
 config = new Config({

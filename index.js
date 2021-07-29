@@ -1,5 +1,5 @@
-const Config = require('./src/Config.js');
-const ConnectorAbstract = require('./src/ConnectorAbstract');
+const Config = require('./src/configFacade.js');
+const ConnectorAbstract = require('./src/connectorAbstract');
 
 const configModule = Config;
 configModule.ConnectorAbstract = ConnectorAbstract;

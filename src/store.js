@@ -9,7 +9,7 @@ class Store {
 
     configDirPath = './config';
     connectorsDirPath = './connectors';
-    defaultConfigPrefix = 'default';
+    defaultConfigPrefix = 'CONFIG';
     connectors = [];
 
     constructor () {
@@ -154,11 +154,8 @@ class Store {
      * @param {string} key 
      * @param {any} defaultValue 
      */
-    getConfigByKey = (key, defaultValue) => {
-        if (!_.hasIn(this.store, key)) {
-            return defaultValue;
-        }
-        return _.get(this.store, key, null);
+    getConfigByKey = (key, defaultValue = null) => {
+        return _.get(this.store, key, defaultValue);
     }
 
     /**

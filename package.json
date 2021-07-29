@@ -1,6 +1,6 @@
 {
   "name": "config-manager",
-  "version": "0.0.53",
+  "version": "0.0.1",
   "description": "a node js config management library",
   "keywords": [],
   "main": "index.js",
@@ -9,6 +9,10 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "jest": "^27.0.6"
+  },
+  "scripts": {
+    "test": "jest tests"
   }
 }

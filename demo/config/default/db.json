@@ -1,0 +1,17 @@
+{
+	"default_connection": "users",
+	"connections": {
+		"users": {
+			"engine": "mariadb",
+			"host": "127.0.0.1",
+			"user": "users_default_user",
+			"password": "users_default_password"
+		},
+		"invoices_db": {
+			"engine": "mysql",
+			"host": "127.0.0.1",
+			"user": "invoices_default_user",
+			"password": "invoices_default_password"
+		}
+	}
+}
