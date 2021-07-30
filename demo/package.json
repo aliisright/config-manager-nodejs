@@ -4,7 +4,7 @@
   "description": "Demo of the config manager library",
   "main": "test.js",
   "scripts": {
-    "run": "node test.js"
+    "demo": "node test.js"
   },
   "author": "aliisright",
   "license": "ISC",

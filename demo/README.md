@@ -12,7 +12,7 @@ npm install
 
 ## Run
 ```shell
-npm run
+npm run demo
 ```
 
 - Feel free to edit the `test.js` file to test the different features of the library

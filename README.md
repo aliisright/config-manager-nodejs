@@ -19,6 +19,42 @@ npm test
 
 # Documentation
 
+## Usage
+```Javascript
+const { Config } = require('nodejs-common-libs');
+const DbConnector = require('./connectors/DbConnector');
+
+config = new Config({
+	configDirPath: 'config',
+	connectorsDirPath: 'connectors',
+	connectors: [new DbConnector],
+});
+
+config.init().then(() => {
+	console.log('config.list()', config.list());
+});
+```
+```Javascript
+const { Config } = require("nodejs-common-libs");
+
+class DbConnector extends Config.ConnectorAbstract {
+    isWatchdog = true;
+    timeout = 3 * 1000;
+
+    /**
+     * 
+     */
+    return_config = () => {
+        return {
+            app: {auth: {client_id: 1212}},
+            db: {connections: {users: {user: 'db_connector'}}},
+        }
+    };
+}
+
+module.exports = DbConnector;
+```
+
 ## Sources priority
 
 Steps of warmup:

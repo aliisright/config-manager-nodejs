@@ -5,11 +5,11 @@
   "keywords": [],
   "main": "index.js",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "fs": "^0.0.1-security",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0",
     "jest": "^27.0.6"
   },
   "scripts": {

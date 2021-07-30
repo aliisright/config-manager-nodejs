@@ -10,7 +10,7 @@ class DbConnector extends ConnectorAbstract {
     return_config = () => {
         return {
             app: {auth: {client_id: 787878}},
-            db: {schemas: {'data-pipelines': 'db_connector'}}
+            db: {connections: {users: {user: 'db_connector'}}},
         }
     };
 }
