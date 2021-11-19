@@ -2,10 +2,7 @@
 
 A Node JS config manager library, helping you to fetch, organise and use your configurations and secrets from different sources
 
-## Installation
-```
-npm install --save https://github.com/aliisright/config-manager-nodejs
-```
+[See the project specifications on Confluence](https://sublimeskinz.atlassian.net/wiki/spaces/LT/pages/2090860549/Config+management)
 
 ## Testing
 
@@ -13,7 +10,7 @@ From the repo root:
 
 ```
 npm install
-npm test
+npm run test
 ```
 <hr />
 
@@ -21,10 +18,10 @@ npm test
 
 ## Usage
 ```Javascript
-const { Config } = require('nodejs-common-libs');
+const { ConfigManager } = require('nodejs-common-libs');
 const DbConnector = require('./connectors/DbConnector');
 
-config = new Config({
+config = new ConfigManager.Config({
 	configDirPath: 'config',
 	connectorsDirPath: 'connectors',
 	connectors: [new DbConnector],
@@ -35,9 +32,9 @@ config.init().then(() => {
 });
 ```
 ```Javascript
-const { Config } = require("nodejs-common-libs");
+const { ConfigManager } = require("nodejs-common-libs");
 
-class DbConnector extends Config.ConnectorAbstract {
+class DbConnector extends ConfigManager.ConnectorAbstract {
     isWatchdog = true;
     timeout = 3 * 1000;
 
@@ -212,7 +209,7 @@ Parameter | Description | Type | Required | Default value
 
 ### set_config (key, value)
 
-- Fetches the value of a given config key
+- Sets the value of config key
 
 Parameter | Description | Type | Required
 -----------|-----------|------------|------------
@@ -235,7 +232,7 @@ Parameter | Description | Type | Required
 
 ### load_connectors (connectors)
 
-- Load or reload a list of given connectors
+- Loads or reloads a list of given connectors
 
 Parameter | Description | Type | Required
 -----------|-----------|------------|------------
@@ -268,3 +265,66 @@ You should implement the following method in order to fetch the config from the 
 - The returned object with be merged with the existing configuration store
 
 - Return value: object
+<hr />
+
+# Type casting
+The config handler provides the typecasting declaration in environment variables. Environment variables are fetched in our apps as strings. However, we are able to ask our config handler to treat it as another data type.
+
+Here’s an example of environment variables that might have different types from string:
+
+```
+CONFIG__db__port=5432 // Basically an integer
+CONFIG__db__user=someUser // Basically a string
+CONFIG__db__do_migrations=1 // Basically a boolean
+CONFIG__accepted_domains=[domain1,domain2] // Basically an array
+```
+But they are all translated as strings:
+```JSON
+{
+  "db": {
+    "port": "5432",
+    "user": "someUser",
+    "do_migrations": "1"
+  },
+  "accepted_domains": "[domain1,domain2]"
+}
+```
+### How to request a specific type for an env var?
+
+By adding a keyword in the variable key right after the prefix CONFIG__ and followed by a double underscore __. It would look like this {config-prefix}__{type}__{variable-name}
+
+ex: CONFIG__integer__db_port=5432
+
+### What types are accepted? 
+
+Type|Usage (representation in the variable name)| Value syntax
+-----------|-----------|------------
+Integer | `int` or `integer` | Should be a number
+String | `str` or `string` | Anything, it would be just transformed into a string (Type defaults to string anyway)
+Boolean | `bool` or `boolean` | 0 or false (case insensitive) returns a boolean `FALSE`. Otherwise it’s transformed to a boolean, usually `TRUE`
+Array | `arr` or `array` | `[element1, element2]`. Returns an array having `element1` and `element2` as <b>string</b> elements
+
+ℹ️ Types default to string (if not defined or if type is not found)
+
+⚠️ Array output elements are always strings
+
+<b>So the previous example would look like this with the type casting syntax:</b>
+```
+CONFIG__str__db__port=5432 // Basically an integer
+CONFIG__int__db__user=someUser // Basically a string
+CONFIG__bool__db__do_migrations=1 // Basically a boolean
+CONFIG__arr__accepted_domains=[domain1,domain2] // Basically an array
+```
+And the output would be like this:
+```JSON
+{
+  "db": {
+    "port": 5432,
+    "user": "someUser",
+    "do_migrations": true
+  },
+  "accepted_domains": [
+    "domain1", "domain2"
+  ]
+}
+```

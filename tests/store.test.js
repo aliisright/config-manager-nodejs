@@ -116,14 +116,14 @@ describe('Store', () => {
         describe('loadConfigFiles', () => {
             it('loadConfigFiles - loads a specific configuration file (fresh new key)', async () => {
                 let store = new Store();
-                await store.setConfigDirPath('tests/stubs/config');
+                await store.setConfigDirPath('common_libs/config-manager/tests/stubs/config');
 
                 await store.loadConfigFiles('default');
                 expect(store.listConfig()).toEqual(defaultFilesExpectedObject);
             });
             it('loadConfigFiles - loads a specific configuration file (using the APP_ENV from app environment variables)', async () => {
                 let store = new Store();
-                await store.setConfigDirPath('tests/stubs/config');
+                await store.setConfigDirPath('common_libs/config-manager/tests/stubs/config');
                 process.env = {
                     CONFIG__APP_ENV: 'production',
                 };
@@ -133,7 +133,7 @@ describe('Store', () => {
             });
             it('loadConfigFiles - loads a specific configuration file (overrides an existing key)', async () => {
                 let store = new Store();
-                await store.setConfigDirPath('tests/stubs/config');
+                await store.setConfigDirPath('common_libs/config-manager/tests/stubs/config');
 
                 await store.setConfigValue('app.version', 1000);
                 expect(store.getConfigByKey('app.version')).toEqual(1000);
@@ -143,7 +143,7 @@ describe('Store', () => {
             });
             it('loadConfigFiles - should log a console error', async () => {
                 let store = new Store();
-                await store.setConfigDirPath('tests/stubs/someWrongPath');
+                await store.setConfigDirPath('common_libs/config-manager/tests/stubs/someWrongPath');
                 
                 console.error = jest.fn();
                 await store.loadConfigFiles('default');

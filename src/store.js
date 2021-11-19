@@ -1,6 +1,9 @@
 const _ = require('lodash');
 const fs = require('fs');
-const { deepMerge } = require('./helpers');
+const {
+    deepMerge,
+    typeCast,
+} = require('./helpers');
 require('dotenv').config();
 
 class Store {
@@ -34,22 +37,27 @@ class Store {
 
     loadConfigFiles = (env = process.env.CONFIG__APP_ENV) => {
         try {
-            const appEnv = env ?? 'default';
+            const appEnv = env ? env : 'default';
             const envPath = `${this.configDirPath}/${appEnv}`;
+            const directory = fs.readdirSync(envPath);
 
-            fs.readdirSync(envPath).forEach((file) => {
-                // read the file
-                const filename = file.split(".").slice(0, -1).join(".");
-                const fileContent = JSON.parse(fs.readFileSync(`${envPath}/${file}`));
-                let newFileContent = {};
-                // fill the store keys with config file keys
-                if (this.store[filename]) {
-                    newFileContent = deepMerge(this.store[filename], fileContent);
-                } else {
-                    newFileContent = {...fileContent};
-                }
-                _.set(this.store, [filename], newFileContent);
-            });
+            if (fs.existsSync(envPath)) {
+                fs.readdirSync(envPath).forEach((file) => {
+                    // read the file
+                    const filename = file.split(".").slice(0, -1).join(".");
+                    const fileContent = JSON.parse(fs.readFileSync(`${envPath}/${file}`));
+                    let newFileContent = {};
+                    // fill the store keys with config file keys
+                    if (this.store[filename]) {
+                        newFileContent = deepMerge(this.store[filename], fileContent);
+                    } else {
+                        newFileContent = {...fileContent};
+                    }
+                    _.set(this.store, [filename], newFileContent);
+                });
+            } else {
+                console.error('Config.loadConfigFiles', 'directory doesn\'t exist');
+            }
             if (!this.store.APP_ENV) {
                 this.store.APP_ENV = appEnv;
             }
@@ -60,10 +68,16 @@ class Store {
 
     loadEnvVariable = (key, value) => {
         const keys = key.split("__");
+        let type = 'string'; // Default type
         if (keys[0] !== "CONFIG") {
             return false;
         }
         keys.shift();
+        if (keys.length > 1) {
+            type = keys[0];
+            keys.shift();
+        }
+        value = typeCast(value, type);
         _.set(this.store, keys, value);
         return value;
     };
